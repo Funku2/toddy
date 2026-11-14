@@ -139,6 +139,12 @@ One difference to keep in mind: his videos tell true stories with real footage o
 
 Budget per video: about 450 to 500 Higgsfield credits.
 
+### The edit tool
+
+`tools/build_short.py` builds a finished short from two narration files and a settings file. It runs inside the Higgsfield sandbox. The settings file lists the clips, the script one sentence per line, the shot list, the highlighted words, and where the turn and payoff fall. `tools/shorts/` holds the settings for each video made so far; copy one to start the next.
+
+The tool trims pauses safely, checks every spoken word against the script, cuts each shot on a sentence break, adds the sound effects and music, burns the captions and watermark, and prints loudness and shot lengths.
+
 ## 5. Pre-post checklist
 
 - [ ] First frame is the strongest image and is already moving
