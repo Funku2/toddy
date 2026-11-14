@@ -1,0 +1,39 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import EmailForm from '../components/EmailForm.astro';
+import { photo } from '../data/photos';
+const days = [
+  ['Day 1', 'Mind', 'Ten quiet minutes and a written list of what is weighing on you.'],
+  ['Day 2', 'Measure', 'Take your starting numbers: waist, weight, blood pressure, sleep.'],
+  ['Day 3', 'Strength', 'A fifteen-minute bodyweight session you can do in the living room.'],
+  ['Day 4', 'Fuel', 'Protein at every meal, and nothing else changes yet.'],
+  ['Day 5', 'Recovery', 'A fixed bedtime and the last hour without a screen.'],
+  ['Day 6', 'Strength', 'The same session again, one more rep than last time.'],
+  ['Day 7', 'Plan', 'Pick the one lever you will work on for the next ninety days.'],
+];
+---
+<Base title="The free 7-Day Edge Reset" description="One small change a day across the five levers. A free starter guide for men 40 to 60.">
+  <section class="page-head">
+    <div class="wrap split">
+      <div>
+        <p class="eyebrow">Free guide</p>
+        <h1>The 7-Day Edge Reset</h1>
+        <p class="lede">Seven days, one small change a day. It takes ten to thirty minutes, needs no equipment, and leaves you with a baseline routine you can keep.</p>
+        <div style="margin-top:2rem;max-width:520px"><EmailForm source="start" /></div>
+      </div>
+      <Image src={photo('sleep')} alt="A calm bedroom at sunrise" width={900} height={600} loading="eager" />
+    </div>
+  </section>
+  <section class="section rule">
+    <div class="wrap">
+      <p class="eyebrow">What's inside</p>
+      <h2>One lever a day.</h2>
+      <ol class="levers">
+        {days.map(([d, lever, text]) => (
+          <li><span class="num" style="font-size:1.5rem">{d}</span><h3>{lever}</h3><p>{text}</p></li>
+        ))}
+      </ol>
+    </div>
+  </section>
+</Base>

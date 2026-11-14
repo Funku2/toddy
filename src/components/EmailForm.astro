@@ -1,0 +1,15 @@
+---
+import { site } from '../site.config';
+interface Props { cta?: string; source?: string; note?: string }
+const { cta = 'Send me the reset', source = 'site', note = 'One email a week. Unsubscribe any time.' } = Astro.props;
+const external = site.emailFormAction;
+---
+<form class="signup" name="subscribe" method="POST" action={external || '/thanks/'} data-netlify={external ? undefined : 'true'} netlify-honeypot={external ? undefined : 'company'}>
+  {!external && <input type="hidden" name="form-name" value="subscribe" />}
+  <input type="hidden" name="source" value={source} />
+  <label class="hp" aria-hidden="true">Leave empty <input type="text" name="company" tabindex="-1" autocomplete="off" /></label>
+  <label class="skip" for={`email-${source}`}>Email address</label>
+  <input id={`email-${source}`} type="email" name="email" placeholder="you@example.com" autocomplete="email" required />
+  <button class="btn" type="submit">{cta}</button>
+</form>
+<p class="signup-note">{note}</p>

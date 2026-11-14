@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /guide/
+Disallow: /thanks/
+Sitemap: https://thebiologicaledge.com/sitemap-index.xml

@@ -1,0 +1,29 @@
+---
+import Logo from './Logo.astro';
+const path = Astro.url.pathname;
+const links = [
+  { href: '/story/', label: 'My story' },
+  { href: '/articles/', label: 'Articles' },
+  { href: '/shop/', label: 'Shop' },
+];
+---
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="The Biological Edge, home"><Logo /><span>The Biological Edge</span></a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="nav" aria-label="Menu">
+      <svg width="20" height="14" viewBox="0 0 20 14" aria-hidden="true"><path d="M0 1h20M0 7h20M0 13h20" stroke="currentColor" stroke-width="1.8"/></svg>
+    </button>
+    <nav class="nav" id="nav" aria-label="Main">
+      {links.map((l) => <a href={l.href} aria-current={path.startsWith(l.href) ? 'page' : undefined}>{l.label}</a>)}
+      <a class="btn" href="/start/">Free 7-day reset</a>
+    </nav>
+  </div>
+</header>
+<script>
+  const t = document.querySelector('.nav-toggle');
+  const n = document.getElementById('nav');
+  t?.addEventListener('click', () => {
+    const open = n?.classList.toggle('open');
+    t.setAttribute('aria-expanded', String(!!open));
+  });
+</script>

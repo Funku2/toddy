@@ -1,0 +1,46 @@
+---
+import Logo from './Logo.astro';
+import { site } from '../site.config';
+const social = Object.entries(site.social).filter(([, url]) => url);
+---
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="brand" href="/"><Logo /><span>The Biological Edge</span></a>
+        <p class="muted" style="margin-top:16px;max-width:26em">{site.tagline}</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="/story/">My story</a></li>
+          <li><a href="/articles/">Articles</a></li>
+          <li><a href="/shop/">Shop</a></li>
+          <li><a href="/start/">Free 7-day reset</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>The fine print</h4>
+        <ul>
+          <li><a href="/disclosure/">Affiliate disclosure</a></li>
+          <li><a href="/disclaimer/">Medical disclaimer</a></li>
+          <li><a href="/privacy/">Privacy</a></li>
+          <li><a href="/terms/">Terms</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Say hello</h4>
+        <ul>
+          <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
+          {social.map(([name, url]) => <li><a href={url} rel="noopener">{name}</a></li>)}
+        </ul>
+      </div>
+    </div>
+    <p class="fine">
+      The Biological Edge shares personal experience and general education. It is not medical advice, and nothing here
+      diagnoses or treats any condition. Talk to your doctor before changing your training, diet, supplements or
+      medication. Some links are affiliate links: if you buy through them we may earn a commission, at no extra cost to you.
+      © {new Date().getFullYear()} The Biological Edge.
+    </p>
+  </div>
+</footer>

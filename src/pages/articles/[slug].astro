@@ -1,0 +1,62 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import EmailForm from '../../components/EmailForm.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import { bySlug } from '../../data/products';
+import { photo } from '../../data/photos';
+import { site } from '../../site.config';
+
+export async function getStaticPaths() {
+  return (await getCollection('articles')).map((a) => ({ params: { slug: a.id }, props: { a } }));
+}
+const { a } = Astro.props;
+const { Content } = await render(a);
+const picks = a.data.products.map((s) => bySlug(s)).filter((p) => !!p);
+const date = a.data.date.toLocaleDateString('en-CA', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
+---
+<Base title={a.data.title} description={a.data.description}>
+  <article>
+    <header class="page-head">
+      <div class="wrap narrow">
+        <p class="eyebrow">{a.data.lever}</p>
+        <h1 style="font-size:clamp(2.1rem,5vw,3.5rem)">{a.data.title}</h1>
+        <p class="lede">{a.data.description}</p>
+        <p class="byline"><span>By {site.founder}</span><span>{date}</span></p>
+      </div>
+    </header>
+    <div class="wrap article-cover" style="max-width:1000px">
+      <Image src={photo(a.data.cover)} alt="" width={1000} height={500} loading="eager" />
+    </div>
+    {a.data.videoUrl && (
+      <div class="wrap narrow" style="margin-top:2rem"><a class="btn ghost" href={a.data.videoUrl} rel="noopener">Watch the video version</a></div>
+    )}
+    <div class="wrap narrow prose" style="padding-block: clamp(40px, 6vw, 72px)">
+      <Content />
+      <div class="callout">
+        <p>This article is personal experience and general education, not medical advice. Talk to your doctor before changing your training, diet, supplements or medication. <a href="/disclaimer/">Full disclaimer.</a></p>
+      </div>
+    </div>
+  </article>
+
+  {picks.length > 0 && (
+    <section class="section rule">
+      <div class="wrap">
+        <div class="section-head"><div><p class="eyebrow">From the shop</p><h2>Mentioned in this article</h2></div></div>
+        <div class="grid c4">{picks.map((p) => <ProductCard product={p!} />)}</div>
+      </div>
+    </section>
+  )}
+
+  <section class="section band">
+    <div class="wrap band-grid">
+      <div>
+        <p class="eyebrow">Free guide</p>
+        <h2>The 7-Day Edge Reset</h2>
+        <p class="lede">One small change a day across the five levers. Free, and yours straight away.</p>
+      </div>
+      <div><EmailForm source={`article-${a.id}`} /></div>
+    </div>
+  </section>
+</Base>

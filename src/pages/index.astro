@@ -1,0 +1,124 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import EmailForm from '../components/EmailForm.astro';
+import ProductCard from '../components/ProductCard.astro';
+import { products } from '../data/products';
+import { photo } from '../data/photos';
+
+const articles = (await getCollection('articles')).sort((a, b) => +b.data.date - +a.data.date).slice(0, 3);
+const picks = ['edge-reset', 'creatine-monohydrate', 'home-sauna', 'sleep-tracking-ring'].map((s) => products.find((p) => p.slug === s)!);
+const levers = [
+  ['Mind', 'Stress and anxiety come first. Nothing else sticks while your head is running the show.'],
+  ['Strength', 'Three sessions a week. Muscle is the best retirement plan your body has.'],
+  ['Recovery', 'Sleep, heat and rest. This is where the training turns into results.'],
+  ['Fuel', 'Protein first, a calmer gut, and food you can keep eating for years.'],
+  ['Measure', 'Bloodwork and a few simple numbers, so you are steering and not guessing.'],
+];
+---
+<Base>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow rise" style="--i:0">For men 40 to 60</p>
+        <h1 class="rise" style="--i:1">Get your <em class="accent">edge</em> back.</h1>
+        <p class="lede rise" style="--i:2">
+          I spent years anxious, exhausted and unhealthy. At 51 I'm stronger and calmer than I have been in a long
+          time. This is everything that worked, in the order it worked, with the hype taken out.
+        </p>
+        <div class="actions rise" style="--i:3">
+          <a class="btn ember" href="/start/">Start the free 7-day reset</a>
+          <a class="btn ghost" href="/story/">Read my story</a>
+        </div>
+      </div>
+      <figure class="hero-figure rise" style="--i:2">
+        <Image src={photo('sauna')} alt="A man sitting in a cedar sauna, seen from behind" width={720} height={900} loading="eager" />
+        <figcaption><strong>Five levers.</strong>Mind, strength, recovery, fuel and measurement. That's the whole method.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="strip" aria-label="What to expect">
+    <div class="wrap">
+      <ul>
+        <li><strong>Lived, not theorised</strong>Written by a 51-year-old who had to fix his own health first.</li>
+        <li><strong>Evidence before excitement</strong>If the research is thin, we say it's thin.</li>
+        <li><strong>Straight about money</strong>Affiliate links are always labelled. We only list what we'd buy.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap split">
+      <Image src={photo('trail')} alt="A man walking a foothills trail toward the Rocky Mountains at sunrise" width={900} height={600} />
+      <div>
+        <p class="eyebrow">Why this exists</p>
+        <h2>I was the guy this is written for.</h2>
+        <p>
+          Anxiety and stress for years. A stomach that was always off. No energy for work, family or anything else.
+          I kept trying to overhaul my whole life at once, and it never lasted.
+        </p>
+        <p>
+          What worked was fixing one thing at a time: my head first, then movement, then real strength, then a proper
+          look at my bloodwork with a doctor. The Biological Edge is that path, laid out so you can skip the years I
+          wasted.
+        </p>
+        <a class="arrow-link" href="/story/">The full story</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section rule">
+    <div class="wrap">
+      <p class="eyebrow">The method</p>
+      <h2>Five levers. Pull them in order.</h2>
+      <p class="lede">You don't need forty habits. You need five, and you need to stop starting all of them on the same Monday.</p>
+      <ol class="levers">
+        {levers.map(([name, text], i) => (
+          <li><span class="num">0{i + 1}</span><h3>{name}</h3><p>{text}</p></li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section rule">
+    <div class="wrap">
+      <div class="section-head">
+        <div><p class="eyebrow">The shop</p><h2>A short list of things worth buying.</h2></div>
+        <a class="arrow-link" href="/shop/">See everything</a>
+      </div>
+      <div class="grid c4">{picks.map((p) => <ProductCard product={p} />)}</div>
+    </div>
+  </section>
+
+  <section class="section rule">
+    <div class="wrap">
+      <div class="section-head">
+        <div><p class="eyebrow">Read</p><h2>Start with these.</h2></div>
+        <a class="arrow-link" href="/articles/">All articles</a>
+      </div>
+      <div class="grid c3">
+        {articles.map((a) => (
+          <a class="card wide" href={`/articles/${a.id}/`}>
+            <div class="thumb"><Image src={photo(a.data.cover)} alt="" width={640} height={427} loading="lazy" /></div>
+            <p class="meta">{a.data.lever}</p>
+            <h3>{a.data.title}</h3>
+            <p>{a.data.description}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section band">
+    <div class="wrap band-grid">
+      <div>
+        <p class="eyebrow">Free guide</p>
+        <h2>The 7-Day Edge Reset</h2>
+        <p class="lede">One small change a day across the five levers. No equipment and nothing to buy. By day seven you have a routine you can keep.</p>
+      </div>
+      <div><EmailForm source="home" /></div>
+    </div>
+  </section>
+</Base>

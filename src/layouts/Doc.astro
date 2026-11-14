@@ -1,0 +1,15 @@
+---
+import Base from './Base.astro';
+interface Props { title: string; eyebrow?: string; lede?: string; noindex?: boolean }
+const { title, eyebrow = 'The fine print', lede, noindex } = Astro.props;
+---
+<Base title={title} noindex={noindex}>
+  <section class="page-head">
+    <div class="wrap narrow">
+      <p class="eyebrow">{eyebrow}</p>
+      <h1 style="font-size:clamp(2.1rem,5vw,3.4rem)">{title}</h1>
+      {lede && <p class="lede">{lede}</p>}
+    </div>
+  </section>
+  <div class="wrap narrow prose plain" style="padding-bottom: var(--section)"><slot /></div>
+</Base>

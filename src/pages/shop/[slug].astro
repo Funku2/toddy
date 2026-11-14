@@ -1,0 +1,82 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import EmailForm from '../../components/EmailForm.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import { products, categories, buyLink } from '../../data/products';
+import { photo } from '../../data/photos';
+
+export function getStaticPaths() {
+  return products.map((p) => ({ params: { slug: p.slug }, props: { p } }));
+}
+const { p } = Astro.props;
+const cat = categories.find((c) => c.id === p.category)!;
+const link = p.kind === 'partner' ? buyLink(p) : null;
+const related = products.filter((x) => x.category === p.category && x.slug !== p.slug).slice(0, 4);
+---
+<Base title={p.name} description={p.summary}>
+  <section class="wrap" style="padding-block: clamp(32px, 5vw, 64px) var(--section)">
+    <p class="small muted" style="margin-bottom:2rem"><a href="/shop/">Shop</a> / <a href={`/shop/#${cat.id}`}>{cat.name}</a></p>
+    <div class="product">
+      <div class="media">
+        {p.kind === 'digital'
+          ? <div class="cover"><span class="k">{p.format}</span><span class="t">{p.name}</span></div>
+          : <Image src={photo(p.image!)} alt="" width={900} height={900} loading="eager" />}
+        {p.kind === 'partner' && <p class="small muted" style="margin-top:10px">Illustrative photo. Not a specific brand.</p>}
+      </div>
+      <div>
+        <p class="eyebrow">{p.kind === 'digital' ? p.format : cat.name}</p>
+        <h1>{p.name}</h1>
+        <p class="lede">{p.summary}</p>
+
+        <div class="buybox">
+          {p.kind === 'partner' && link && (
+            <>
+              <p class="small muted" style="margin:0">Sold and shipped by the retailer, not by us.</p>
+              <a class="btn ember" href={link.href} target="_blank" rel={link.affiliate ? 'sponsored noopener' : 'noopener'}>{link.label}</a>
+              {link.affiliate && <p class="small muted" style="margin-top:12px">Affiliate link. We may earn a commission at no extra cost to you.</p>}
+            </>
+          )}
+          {p.kind === 'digital' && p.free && (
+            <>
+              <p class="price">Free</p>
+              <p class="small muted">Enter your email and it's yours straight away.</p>
+              <EmailForm source={`shop-${p.slug}`} note="" />
+            </>
+          )}
+          {p.kind === 'digital' && !p.free && p.checkoutUrl && (
+            <>
+              <p class="price">{p.price}</p>
+              <a class="btn ember" href={p.checkoutUrl}>Buy now</a>
+              <p class="small muted" style="margin-top:12px">Secure checkout. Instant download after payment.</p>
+            </>
+          )}
+          {p.kind === 'digital' && !p.free && !p.checkoutUrl && (
+            <>
+              <p><span class="tag">In the works</span></p>
+              <p class="small muted">This one isn't finished yet. Leave your email and you'll be the first to hear when it is.</p>
+              <EmailForm source={`waitlist-${p.slug}`} cta="Join the waitlist" note="" />
+            </>
+          )}
+        </div>
+
+        <div class="prose plain">
+          <h2 style="margin-top:0">{p.kind === 'digital' ? 'What it is' : 'Why it made the list'}</h2>
+          <p>{p.why}</p>
+          <h2>{p.kind === 'digital' ? "What's inside" : 'What to look for'}</h2>
+          <ul class="checks">{p.lookFor.map((x) => <li>{x}</li>)}</ul>
+          {p.caution && <div class="callout"><p><strong>Before you buy.</strong> {p.caution}</p></div>}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {related.length > 0 && (
+    <section class="section rule">
+      <div class="wrap">
+        <div class="section-head"><h2>More in {cat.name.toLowerCase()}</h2><a class="arrow-link" href="/shop/">Back to the shop</a></div>
+        <div class="grid c4">{related.map((r) => <ProductCard product={r} />)}</div>
+      </div>
+    </section>
+  )}
+</Base>

@@ -1,0 +1,25 @@
+---
+import Base from '../../layouts/Base.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import { products, categories } from '../../data/products';
+---
+<Base title="Shop" description="A short, honest list of supplements, recovery gear, strength equipment and trackers for men over 40, plus our own guides and programs.">
+  <section class="page-head">
+    <div class="wrap">
+      <p class="eyebrow">The shop</p>
+      <h1>A short list of things worth buying.</h1>
+      <p class="lede">Our own guides are sold right here. Everything else is sold by a retailer we link to, so you get their price, shipping and returns. Some of those links earn us a commission, which never changes what you pay. <a href="/disclosure/">How that works.</a></p>
+    </div>
+  </section>
+  <section class="wrap" style="padding-bottom: var(--section)">
+    <ul class="chips" aria-label="Jump to a category">
+      {categories.map((c) => <li><a href={`#${c.id}`}>{c.name}</a></li>)}
+    </ul>
+    {categories.map((c) => (
+      <>
+        <div class="cat-head" id={c.id}><h2>{c.name}</h2><p>{c.blurb}</p></div>
+        <div class="grid c4">{products.filter((p) => p.category === c.id).map((p) => <ProductCard product={p} />)}</div>
+      </>
+    ))}
+  </section>
+</Base>

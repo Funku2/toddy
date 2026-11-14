@@ -1,0 +1,28 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { photo } from '../../data/photos';
+const articles = (await getCollection('articles')).sort((a, b) => +b.data.date - +a.data.date);
+---
+<Base title="Articles" description="Plain-English articles on stress, strength, recovery, food and bloodwork for men 40 to 60.">
+  <section class="page-head">
+    <div class="wrap">
+      <p class="eyebrow">Articles</p>
+      <h1>What worked, and why.</h1>
+      <p class="lede">Each one covers a single lever, in plain English, with the evidence where there is some.</p>
+    </div>
+  </section>
+  <section class="wrap" style="padding-bottom: var(--section)">
+    <div class="grid c3">
+      {articles.map((a) => (
+        <a class="card wide" href={`/articles/${a.id}/`}>
+          <div class="thumb"><Image src={photo(a.data.cover)} alt="" width={640} height={427} loading="lazy" /></div>
+          <p class="meta">{a.data.lever}</p>
+          <h3>{a.data.title}</h3>
+          <p>{a.data.description}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+</Base>

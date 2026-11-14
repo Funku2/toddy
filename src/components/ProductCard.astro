@@ -1,0 +1,22 @@
+---
+import { Image } from 'astro:assets';
+import type { Product } from '../data/products';
+import { categories } from '../data/products';
+import { photo } from '../data/photos';
+interface Props { product: Product }
+const { product: p } = Astro.props;
+const cat = categories.find((c) => c.id === p.category)!;
+const live = p.kind === 'digital' && (p.free || p.checkoutUrl);
+---
+<a class="card" href={`/shop/${p.slug}/`}>
+  <div class="thumb">
+    {p.kind === 'digital' ? (
+      <div class="cover"><span class="k">{p.format}</span><span class="t">{p.name}</span></div>
+    ) : (
+      <Image src={photo(p.image!)} alt="" width={520} height={520} loading="lazy" />
+    )}
+  </div>
+  <p class="meta">{p.kind === 'digital' ? (p.free ? 'Free' : live ? p.price : 'Coming soon') : cat.name}</p>
+  <h3>{p.name}</h3>
+  <p>{p.summary}</p>
+</a>

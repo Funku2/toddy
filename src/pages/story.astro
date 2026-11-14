@@ -1,0 +1,48 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import EmailForm from '../components/EmailForm.astro';
+import { photo } from '../data/photos';
+---
+<Base title="My story" description="How Todd Funk went from anxious, exhausted and unhealthy to stronger and calmer at 51, and why he started The Biological Edge.">
+  <section class="page-head">
+    <div class="wrap">
+      <p class="eyebrow">My story</p>
+      <h1>I didn't need a miracle. I needed the right order.</h1>
+      <p class="lede">I'm Todd Funk. I'm 51 and I live in Calgary. A few years ago I would not have believed I'd be writing a health website.</p>
+    </div>
+  </section>
+
+  <section class="wrap" style="padding-bottom: var(--section)">
+    <div class="split" style="align-items:start">
+      <div class="prose plain">
+        <h2 style="margin-top:0">Where I was</h2>
+        <p>For years I lived with anxiety and stress. My stomach was constantly giving me trouble. I was unhealthy and I had no energy, and I'd got used to all of it. I thought that was just what your late forties felt like.</p>
+        <h2>What changed</h2>
+        <p>The first thing I fixed was my mental health. Everything else followed from that, because for the first time I could keep a habit going for longer than a fortnight.</p>
+        <p>Then I started moving. I did Pilates for a year, which taught my body how to move again. After that I switched to lifting weights, and I have been building muscle ever since.</p>
+        <p>With the basics in place, I had proper bloodwork done and started testosterone replacement therapy through a medical clinic, which monitors it. I added regular sauna sessions and a short list of supplements.</p>
+        <blockquote>None of it was complicated. I'd just been doing it in the wrong order, all at once, for years.</blockquote>
+        <h2>Why The Biological Edge</h2>
+        <p>When I went looking for help, I found two kinds of advice. One was written for 25-year-olds with perfect joints. The other was trying to sell me a pill.</p>
+        <p>I wanted something for men like me: forty to sixty, busy, a bit worn down, and willing to do the work if someone would just say plainly what the work is. So that's what this is.</p>
+        <h2>What you can expect from me</h2>
+        <ul>
+          <li><strong>My real experience,</strong> including the medical parts, told as experience and not as advice.</li>
+          <li><strong>The evidence,</strong> and a straight answer when there isn't much.</li>
+          <li><strong>Honesty about money.</strong> Some links here earn me a commission. They are always labelled, and I only list things I would buy myself.</li>
+        </ul>
+        <p>I'm not a doctor. I'm a guy who fixed his own health and took notes. Use what's here as a starting point for your own conversation with yours.</p>
+        <p><a class="arrow-link" href="/articles/the-order-i-fixed-things-in/">Read the order I fixed things in</a></p>
+      </div>
+      <div style="position:sticky;top:96px">
+        <Image src={photo('journal')} alt="A notebook and a mug of coffee on a kitchen table in morning light" width={800} height={533} />
+        <div class="callout" style="margin-top:24px">
+          <p class="eyebrow" style="margin-bottom:8px">Start here</p>
+          <p><strong>The 7-Day Edge Reset.</strong> One small change a day. Free.</p>
+          <EmailForm source="story" cta="Send it" note="" />
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
