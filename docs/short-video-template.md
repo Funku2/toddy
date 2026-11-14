@@ -100,7 +100,9 @@ One difference to keep in mind: his videos tell true stories with real footage o
 
 ### Voice rules
 
-- One voice across every video so the channel is recognisable. The current brand voice is the Higgsfield preset "Fraser", the deepest of the male presets. Todd's own cloned voice can replace it later.
+- One voice across every video so the channel is recognisable. The current brand voice is the Higgsfield preset "Fraser" on the ElevenLabs engine (`text2speech_v2`, variant `elevenlabs`). The default engine mispronounced "fifty" with this voice. Todd's own cloned voice can replace it later.
+- Never trim pauses inside the speech with a volume threshold: it clips quiet consonants ("tired" became "hired"). Shorten a long pause by removing only its middle.
+- Every narration is checked before the edit: run speech recognition on it with no script and compare word for word. Regenerate any line that does not match.
 - 2.8 to 3.2 words a second, with pauses of a quarter second or less between sentences.
 - Pain beats lower and slower. Everything after the turn firmer and faster.
 
