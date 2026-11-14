@@ -8,7 +8,8 @@ export const site = {
   email: 'hello@thebiologicaledge.com',
 
   // EMAIL LIST
-  // Leave empty to use Netlify Forms (works automatically when hosted on Netlify).
+  // Leave empty to save sign-ups on your own hosting (public/subscribe.php writes them
+  // to tbe-private/subscribers.csv, one folder above public_html).
   // Or paste the form "action" URL from your email provider (Kit, MailerLite, Beehiiv...).
   emailFormAction: '',
 

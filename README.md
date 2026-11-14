@@ -33,8 +33,8 @@ npm run build    # production build into dist/
 
 - [ ] Todd reviews every first-person line (home page, story, articles, product notes) for accuracy
 - [ ] Replace the AI-generated photos of a man with real photos of Todd
-- [ ] Deploy (Netlify works with no extra setup: forms are collected by Netlify Forms) and point the domain at it
-- [ ] Connect an email provider, or keep Netlify Forms and export sign-ups
+- [ ] Upload the contents of `dist/` to `public_html` on Hostinger
+- [ ] Connect an email provider. Until then sign-ups are saved by `subscribe.php` to `tbe-private/subscribers.csv`, one folder above `public_html`
 - [ ] Create `hello@thebiologicaledge.com`
 - [ ] Have the privacy and terms pages reviewed
 - [ ] Have TRT-related content checked against Health Canada advertising rules
