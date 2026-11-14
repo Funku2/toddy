@@ -93,20 +93,21 @@ One difference to keep in mind: his videos tell true stories with real footage o
 
 - 1 to 3 words on screen at a time, timed to the voice.
 - All capitals, heavy sans-serif, white with a black outline.
-- About 7% of frame height, centred, sitting around 60% of the way down the frame.
-- One key word per line in ember orange (`#D9541E`).
+- About 5% of frame height, centred, sitting about three quarters of the way down the frame so it stays clear of the product.
+- One key word per line in a highlight colour that contrasts with the footage: gold (`#FFC83D`) on red or dark scenes, ember orange (`#D9541E`) on cool or neutral ones.
 - Never over the product or a face.
 - Hook text for the first 2 seconds sits at the top third and is different from the spoken words.
 
 ### Voice rules
 
-- One voice across every video so the channel is recognisable. Todd's own cloned voice is the first choice.
+- One voice across every video so the channel is recognisable. The current brand voice is the Higgsfield preset "Fraser", the deepest of the male presets. Todd's own cloned voice can replace it later.
 - 2.8 to 3.2 words a second, with pauses of a quarter second or less between sentences.
 - Pain beats lower and slower. Everything after the turn firmer and faster.
 
 ### Sound rules
 
 - Music: sparse and tense to the turn, full after it. The drop lands on the turn word.
+- Narration is generated in two parts, before and after the turn, so the second part can be faster and louder.
 - Sound effects: a low hit on frame one, a soft whoosh on every second cut, a riser for the two seconds before the turn, an impact on the payoff shot.
 - Voice always clearly on top. Music about 14 dB under the voice.
 
