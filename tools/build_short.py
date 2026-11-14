@@ -91,10 +91,11 @@ st = [s[0][0] for s in sent]
 VD = round(sent[-1][-1][1] + 0.30, 2)
 PAIN = "eq=saturation=0.30:contrast=1.10:brightness=-0.01"
 GR = {None: None, "pain": PAIN, "pain_dark": "eq=gamma=1.5:brightness=0.05," + PAIN, "flash": "fade=t=in:st=0:d=0.14:color=white"}
-# each shot: [first sentence, clip, in-point, zoom, centre x, centre y, grade]
-SHOTS = [(a,b,c,d,e,f,GR[g]) for a,b,c,d,e,f,g in CFG["shots"]]
+# each shot: [sentence, clip, in-point, zoom, centre x, centre y, grade, (optional) caption cue within the sentence]
+SHOTS = [(x[0],x[1],x[2],x[3],x[4],x[5],GR[x[6]]) for x in CFG["shots"]]
+CUE = [(x[7] if len(x) > 7 else 0) for x in CFG["shots"]]  # optional 8th value: start on the Nth caption cue inside the sentence
 LP = CFG.get("loop_point")
-cuts = [0.0] + [round(st[s[0]] - 0.05, 3) for s in SHOTS[1:]] + [VD]
+cuts = [0.0] + [round(sent[s[0]][min(CUE[n+1], len(sent[s[0]])-1)][0] - 0.05, 3) for n,s in enumerate(SHOTS[1:])] + [VD]
 open("list.txt","w").close(); table = []
 for i,(si,clip,inp,z,cx,cy,g) in enumerate(SHOTS):
     d = round(cuts[i+1]-cuts[i], 3)

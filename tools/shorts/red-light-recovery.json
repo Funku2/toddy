@@ -1,42 +1,231 @@
 {
-  "clips": {
-    "c1": "hf_20261114_145531_83d10402-ec14-4d82-87ab-51ed8653813a.mp4",
-    "c2": "hf_20261114_145829_c72f83b9-6293-4d34-9e6a-faf3ba0551d6.mp4",
-    "c3": "hf_20261114_145531_88bbea6c-4f35-46fe-8d87-b3b761a7a667.mp4",
-    "c4": "hf_20261114_145531_20dbe9eb-e698-45b3-89c0-74fe763301ae.mp4",
-    "c5": "hf_20261114_145531_e528298a-f836-4646-aed9-b5f10f9cd78e.mp4",
-    "c6": "hf_20261114_145531_141579bc-0098-434d-8e8d-45309d50d265.mp4",
-    "cof": "hf_20261114_140823_b2e0513b-51f4-4b59-b7ae-a0a0675b5013.mp4"
-  },
-  "music": "hf_20261114_145509_d26fd5ca-684f-4888-b6ce-7ca453778bd2.mp3",
-  "music_offset": 4.5,
-  "script": ["You're not tired because you're fifty.", "You wake up wrecked.", "You run on coffee.", "You crash by three.",
-    "Maybe it's not age.", "Maybe it's recovery.", "So get in the heat.", "Sit in the red.", "Breathe.", "Sweat it out.",
-    "Do it again tomorrow.", "Then measure it.", "Your sleep.", "Your recovery.", "Every single morning.", "Stop guessing.",
-    "Start knowing.", "Because the truth is,"],
-  "shots": [
-    [0, "c6", 2.0, 1.0, 0.5, 0.5, null],
-    [1, "c1", 0.4, 1.0, 0.5, 0.5, "pain_dark"],
-    [2, "cof", 0.4, 1.0, 0.5, 0.5, "pain"],
-    [3, "c2", 1.0, 1.0, 0.5, 0.5, "pain"],
-    [4, "c3", 0.0, 1.0, 0.5, 0.5, "flash"],
-    [5, "c3", 2.3, 1.2, 0.5, 0.42, null],
-    [6, "c4", 0.2, 1.0, 0.5, 0.5, null],
-    [7, "c3", 3.1, 1.55, 0.5, 0.36, null],
-    [8, "c4", 1.5, 1.25, 0.45, 0.4, null],
-    [9, "c4", 2.7, 1.5, 0.4, 0.5, null],
-    [10, "c3", 1.2, 1.12, 0.5, 0.45, null],
-    [11, "c5", 0.0, 1.0, 0.5, 0.5, "flash"],
-    [12, "c5", 1.3, 1.2, 0.5, 0.5, null],
-    [13, "c5", 2.5, 1.45, 0.5, 0.5, null],
-    [14, "c5", 2.9, 1.0, 0.5, 0.5, null],
-    [15, "c3", 0.5, 1.35, 0.5, 0.4, null],
-    [16, "c6", 0.0, 1.0, 0.5, 0.5, null]
+ "clips": {
+  "c1": "hf_20261114_145531_83d10402-ec14-4d82-87ab-51ed8653813a.mp4",
+  "c2": "hf_20261114_145829_c72f83b9-6293-4d34-9e6a-faf3ba0551d6.mp4",
+  "c3": "hf_20261114_145531_88bbea6c-4f35-46fe-8d87-b3b761a7a667.mp4",
+  "c4": "hf_20261114_145531_20dbe9eb-e698-45b3-89c0-74fe763301ae.mp4",
+  "c5": "hf_20261114_145531_e528298a-f836-4646-aed9-b5f10f9cd78e.mp4",
+  "c6": "hf_20261114_145531_141579bc-0098-434d-8e8d-45309d50d265.mp4",
+  "cof": "hf_20261114_140823_b2e0513b-51f4-4b59-b7ae-a0a0675b5013.mp4"
+ },
+ "music": "hf_20261114_145509_d26fd5ca-684f-4888-b6ce-7ca453778bd2.mp3",
+ "music_offset": 4.5,
+ "script": [
+  "You're not tired because you're fifty.",
+  "You wake up wrecked.",
+  "You run on coffee.",
+  "You crash by three.",
+  "Maybe it's not age.",
+  "Maybe it's recovery.",
+  "So get in the heat.",
+  "Sit in the red.",
+  "Breathe.",
+  "Sweat it out.",
+  "Do it again tomorrow.",
+  "Then measure it.",
+  "Your sleep.",
+  "Your recovery.",
+  "Every single morning.",
+  "Stop guessing.",
+  "Start knowing.",
+  "The truth is, you're not tired because you're fifty."
+ ],
+ "shots": [
+  [
+   0,
+   "c6",
+   2.0,
+   1.0,
+   0.5,
+   0.5,
+   null
   ],
-  "loop_point": 2.0,
-  "turn_shot": 4,
-  "pay_shot": 11,
-  "key": ["FIFTY", "WRECKED", "COFFEE", "THREE", "AGE", "RECOVERY", "HEAT", "RED", "BREATHE", "SWEAT", "TOMORROW", "MEASURE", "SLEEP", "MORNING", "GUESSING", "KNOWING", "TRUTH"],
-  "highlight_bgr": "3DC8FF",
-  "hook_tag": "FOR MEN OVER 40"
+  [
+   1,
+   "c1",
+   0.4,
+   1.0,
+   0.5,
+   0.5,
+   "pain_dark"
+  ],
+  [
+   2,
+   "cof",
+   0.4,
+   1.0,
+   0.5,
+   0.5,
+   "pain"
+  ],
+  [
+   3,
+   "c2",
+   1.0,
+   1.0,
+   0.5,
+   0.5,
+   "pain"
+  ],
+  [
+   4,
+   "c3",
+   0.0,
+   1.0,
+   0.5,
+   0.5,
+   "flash"
+  ],
+  [
+   5,
+   "c3",
+   2.3,
+   1.2,
+   0.5,
+   0.42,
+   null
+  ],
+  [
+   6,
+   "c4",
+   0.2,
+   1.0,
+   0.5,
+   0.5,
+   null
+  ],
+  [
+   7,
+   "c3",
+   3.1,
+   1.55,
+   0.5,
+   0.36,
+   null
+  ],
+  [
+   8,
+   "c4",
+   1.5,
+   1.25,
+   0.45,
+   0.4,
+   null
+  ],
+  [
+   9,
+   "c4",
+   2.7,
+   1.5,
+   0.4,
+   0.5,
+   null
+  ],
+  [
+   10,
+   "c3",
+   1.2,
+   1.12,
+   0.5,
+   0.45,
+   null
+  ],
+  [
+   11,
+   "c5",
+   0.0,
+   1.0,
+   0.5,
+   0.5,
+   "flash"
+  ],
+  [
+   12,
+   "c5",
+   1.3,
+   1.2,
+   0.5,
+   0.5,
+   null
+  ],
+  [
+   13,
+   "c5",
+   2.5,
+   1.45,
+   0.5,
+   0.5,
+   null
+  ],
+  [
+   14,
+   "c5",
+   2.9,
+   1.0,
+   0.5,
+   0.5,
+   null
+  ],
+  [
+   15,
+   "c3",
+   0.5,
+   1.35,
+   0.5,
+   0.4,
+   null
+  ],
+  [
+   16,
+   "c3",
+   1.8,
+   1.3,
+   0.5,
+   0.42,
+   null
+  ],
+  [
+   17,
+   "c4",
+   3.2,
+   1.15,
+   0.45,
+   0.45,
+   null
+  ],
+  [
+   17,
+   "c6",
+   0.0,
+   1.0,
+   0.5,
+   0.5,
+   null,
+   1
+  ]
+ ],
+ "loop_point": 2.0,
+ "turn_shot": 4,
+ "pay_shot": 11,
+ "key": [
+  "FIFTY",
+  "WRECKED",
+  "COFFEE",
+  "THREE",
+  "AGE",
+  "RECOVERY",
+  "HEAT",
+  "RED",
+  "BREATHE",
+  "SWEAT",
+  "TOMORROW",
+  "MEASURE",
+  "SLEEP",
+  "MORNING",
+  "GUESSING",
+  "KNOWING",
+  "TRUTH"
+ ],
+ "highlight_bgr": "3DC8FF",
+ "hook_tag": "FOR MEN OVER 40"
 }

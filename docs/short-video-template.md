@@ -58,7 +58,7 @@ One difference to keep in mind: his videos tell true stories with real footage o
 | 7 to 9s | **Turn** | The reframe. Music drops. This is the second hook. | 1 |
 | 9 to 18s | **Ritual** | The thing we do about it, shown as action. Tension builds. | 4 to 5 |
 | 18 to 23s | **Payoff** | Real footage of the real product or result | 2 to 3 |
-| 23 to 25s | **Challenge** | One line that sends the viewer back to the opening | 1 |
+| 23 to 25s | **Close** | "The truth is," followed by the hook line again, as a complete sentence | 2 |
 
 ### Script rules
 
@@ -67,7 +67,7 @@ One difference to keep in mind: his videos tell true stories with real footage o
 - Second person, present tense: "you", not "people".
 - Line one names who the video is for, and can be understood with no context.
 - The turn uses the pattern "It's not X. It's Y." and softens any health claim: "maybe", "might".
-- The last line can be heard as the lead-in to the first line.
+- The last line is a complete sentence that repeats the hook: "The truth is, [hook line]." Never end on an unfinished sentence; it reads as a mistake when the video is watched once or doesn't loop.
 - No product names in the voiceover. Show the product; name it in the description.
 - No promises of results, no disease claims, nothing about prescription treatments.
 
@@ -115,7 +115,7 @@ One difference to keep in mind: his videos tell true stories with real footage o
 
 ### Ending and brand
 
-- No end card. The last frame cuts or loops straight back to the first.
+- No end card. The last shot ends on the frame the first shot starts on, so the picture loops.
 - Logo watermark in a top corner at about 60% opacity for the whole video.
 - The call to action lives in the description and the pinned comment.
 
@@ -153,7 +153,7 @@ The tool trims pauses safely, checks every spoken word against the script, cuts 
 - [ ] No shot is longer than 2.5 seconds
 - [ ] There is real footage of the real product
 - [ ] Captions are readable on a phone at arm's length
-- [ ] The last line loops into the first
+- [ ] The last line is a complete sentence that repeats the hook
 - [ ] No end card, no dead time
 - [ ] No health promise, no prescription product, affiliate line in the description
 
