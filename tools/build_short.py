@@ -4,9 +4,11 @@ Runs inside the Higgsfield sandbox (needs ffmpeg, sox, faster-whisper and the
 video-montage caption scripts). See docs/short-video-template.md for the rules
 this implements, and tools/shorts/*.json for example settings.
 
-    python3 build_short.py <narration part A> <narration part B> <settings.json>
+    python3 build_short.py <settings.json> <narration part 1> <part 2> [<part 3> ...]
 
-The narration parts are local files or file names on the Higgsfield CDN.
+The narration parts are local files or file names on the Higgsfield CDN. Splitting
+the narration lets each part be paced separately and puts a set pause between parts
+(settings "gaps", seconds after each part).
 An upload_url.txt holding a presigned Higgsfield upload URL must sit beside it.
 """
 import subprocess, sys, re, json, os
@@ -17,22 +19,31 @@ def sh(c, check=True):
     return r.stdout.strip()
 def dur(f): return float(sh(f"ffprobe -v error -show_entries format=duration -of csv=p=0 {f}"))
 B = "https://d8j0ntlcm91z4.cloudfront.net/user_38POUYdGIKhepiuwe8QiYWhfYJ8/"
-CFG = json.load(open(sys.argv[3]))
+CFG = json.load(open(sys.argv[1]))
 A = CFG["clips"]
 for k,v in A.items():
     if not os.path.exists(k+".mp4"): sh(f"curl -sSf -o {k}.mp4 {B}{v}")
 if not os.path.exists("music.mp3"): sh(f"curl -sSf -o music.mp3 {B}{CFG['music']}")
-voA, voB = sys.argv[1], sys.argv[2]
-for n,v in (("voA.wav",voA),("voB.wav",voB)):
+PARTS = sys.argv[2:]
+for n,v in enumerate(PARTS):
     src = v if os.path.exists(v) else None
     if not src: sh(f"curl -sSf -o dl_{n}.src {B}{v}"); src = f"dl_{n}.src"
-    sh(f"ffmpeg -loglevel error -y -i {src} -ar 48000 -ac 1 {n}")
+    sh(f"ffmpeg -loglevel error -y -i {src} -ar 48000 -ac 1 vo{n}.wav")
 sh('bash "$HF_WORKFLOWS/video-montage/scripts/fetch_fonts.sh" >/dev/null 2>&1 || true', check=False)
 def tight(i, o, cap):
     # trim leading/trailing silence with margin, then shorten only long pauses by removing
     # the MIDDLE of each silence, keeping cap/2 untouched on both sides so no consonant is cut
-    t = "silenceremove=start_periods=1:start_threshold=-55dB:start_silence=0.06"
-    sh(f'ffmpeg -loglevel error -y -i {i} -af "{t},areverse,{t},areverse" -ar 48000 -ac 1 _t.wav')
+    # find where speech really starts and ends, and cut only outside it (a filter that strips
+    # "trailing silence" once removed a whole final sentence that followed a long pause)
+    sh(f"ffmpeg -loglevel error -y -i {i} -ar 48000 -ac 1 _in.wav")
+    D0 = dur("_in.wav")
+    r0 = subprocess.run("ffmpeg -hide_banner -i _in.wav -af silencedetect=noise=-50dB:d=0.08 -f null -", shell=True, capture_output=True, text=True).stderr
+    s0 = [float(x) for x in re.findall(r"silence_start: (-?[0-9.]+)", r0)]
+    e0 = [float(x) for x in re.findall(r"silence_end: ([0-9.]+)", r0)]
+    head = max(0.0, e0[0] - 0.06) if s0 and s0[0] <= 0.02 and e0 else 0.0
+    tail = D0
+    if s0 and (len(e0) < len(s0) or e0[-1] >= D0 - 0.02): tail = min(D0, s0[-1] + 0.10)
+    sh(f"ffmpeg -loglevel error -y -i _in.wav -af atrim={head:.3f}:{tail:.3f},asetpts=PTS-STARTPTS -ar 48000 -ac 1 _t.wav")
     r = subprocess.run("ffmpeg -hide_banner -i _t.wav -af silencedetect=noise=-45dB:d=0.25 -f null -", shell=True, capture_output=True, text=True).stderr
     st_ = [float(x) for x in re.findall(r"silence_start: ([0-9.]+)", r)]
     en_ = [float(x) for x in re.findall(r"silence_end: ([0-9.]+)", r)]
@@ -45,10 +56,14 @@ def tight(i, o, cap):
     fc += "".join(f"[k{n}]" for n in range(len(keep))) + f"concat=n={len(keep)}:v=0:a=1,loudnorm=I=-18:TP=-2:LRA=11,aresample=48000[o]"
     sh(f'ffmpeg -loglevel error -y -i _t.wav -filter_complex "{fc}" -map "[o]" -ac 1 {o}')
     print("TIGHT", i, "from", round(D,2), "to", round(dur(o),2), "pauses shortened", len(keep)-1)
-tight("voA.wav","tA.wav",0.40); tight("voB.wav","tB.wav",0.30)
-LEAD, GAP = 0.12, 0.30
-sh(f'ffmpeg -loglevel error -y -i tA.wav -i tB.wav -filter_complex "[0:a]adelay={int(LEAD*1000)}:all=1,apad=pad_dur={GAP}[a];[1:a]volume=1.0[b];[a][b]concat=n=2:v=0:a=1,apad=pad_dur=0.2[o]" -map "[o]" -ar 48000 -ac 2 narration.wav')
-ND = dur("narration.wav"); print("NARRATION", round(ND,2), "A", round(dur("tA.wav"),2), "B", round(dur("tB.wav"),2))
+CAPS = CFG.get("pause_caps", [0.40] + [0.30]*(len(PARTS)-1))
+GAPS = CFG.get("gaps", [0.30]*(len(PARTS)-1)) + [0.2]
+for n in range(len(PARTS)): tight(f"vo{n}.wav", f"t{n}.wav", CAPS[n])
+LEAD = 0.12
+fc = "".join(f"[{n}:a]" + (f"adelay={int(LEAD*1000)}:all=1," if n == 0 else "") + f"apad=pad_dur={GAPS[n]}[p{n}];" for n in range(len(PARTS)))
+fc += "".join(f"[p{n}]" for n in range(len(PARTS))) + f"concat=n={len(PARTS)}:v=0:a=1[o]"
+sh("ffmpeg -loglevel error -y " + " ".join(f"-i t{n}.wav" for n in range(len(PARTS))) + f' -filter_complex "{fc}" -map "[o]" -ar 48000 -ac 2 narration.wav')
+ND = dur("narration.wav"); print("NARRATION", round(ND,2), "parts", [round(dur(f"t{n}.wav"),2) for n in range(len(PARTS))])
 S = CFG["script"]
 json.dump({"blocks":[{"vo_line":s} for s in S]}, open("script_manifest.json","w"))
 
@@ -56,7 +71,7 @@ json.dump({"blocks":[{"vo_line":s} for s in S]}, open("script_manifest.json","w"
 from faster_whisper import WhisperModel
 _m = WhisperModel("small", device="cpu", compute_type="int8")
 _ws = []
-for _f in ("tA.wav", "tB.wav"):  # checked per part: joining them first makes the recogniser repeat words at the seam
+for _f in [f"t{n}.wav" for n in range(len(PARTS))]:  # checked per part: joining them first makes the recogniser repeat words at the seam
     _segs,_ = _m.transcribe(_f, language="en", word_timestamps=True, condition_on_previous_text=False, beam_size=5, temperature=0)
     _ws += [w for s_ in _segs for w in s_.words]
 def _n(x):
@@ -90,7 +105,7 @@ if len(sent) != len(S): print("UNEXPECTED SENTENCE COUNT"); sys.exit(1)
 st = [s[0][0] for s in sent]
 VD = round(sent[-1][-1][1] + 0.30, 2)
 PAIN = "eq=saturation=0.30:contrast=1.10:brightness=-0.01"
-GR = {None: None, "pain": PAIN, "pain_dark": "eq=gamma=1.5:brightness=0.05," + PAIN, "flash": "fade=t=in:st=0:d=0.14:color=white"}
+GR = {None: None, "pain": PAIN, "pain_dark": "eq=gamma=1.5:brightness=0.05," + PAIN, "flash": "fade=t=in:st=0:d=0.14:color=white", "cool": "eq=saturation=0.75:gamma=1.15"}
 # each shot: [sentence, clip, in-point, zoom, centre x, centre y, grade, (optional) caption cue within the sentence]
 SHOTS = [(x[0],x[1],x[2],x[3],x[4],x[5],GR[x[6]]) for x in CFG["shots"]]
 CUE = [(x[7] if len(x) > 7 else 0) for x in CFG["shots"]]  # optional 8th value: start on the Nth caption cue inside the sentence
@@ -157,7 +172,7 @@ Style: WM,Montserrat ExtraBold,28,&H66FFFFFF,&H66FFFFFF,&HB4000000,&H00000000,1,
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
 """
-ev2 = [f"Dialogue: 0,{at(0)},{at(SD)},WM,,0,0,0,,THE BIOLOGICAL EDGE", f"Dialogue: 1,{at(0)},{at(min(2.0,cuts[1]))},Hook,,0,0,0,," + CFG.get("hook_tag","FOR MEN OVER 40")]
+ev2 = [f"Dialogue: 0,{at(0)},{at(SD)},WM,,0,0,0,,THE BIOLOGICAL EDGE", f"Dialogue: 1,{at(0)},{at(min(2.0,cuts[1]))},Hook,,0,0,0,," + "{\\an5\\pos(540,%d)}" % CFG.get("hook_tag_y", 1215) + CFG.get("hook_tag","FOR MEN OVER 40")]
 flat = [c for s in sent for c in s]; words = 0
 for i,c in enumerate(flat):
     end = c[1]
