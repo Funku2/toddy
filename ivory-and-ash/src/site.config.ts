@@ -9,7 +9,7 @@ export const site = {
 
   // Leave blank to hide. Add them when the phone line and mailbox exist.
   phone: '',
-  email: '',
+  email: 'hello@ivoryandashpainting.com',
   instagram: '',
 
   // How quickly the team replies to a consultation request.
