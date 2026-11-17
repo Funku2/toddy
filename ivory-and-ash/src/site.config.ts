@@ -5,7 +5,7 @@ export const site = {
   tagline: 'Fine residential & commercial painting',
   city: 'Calgary',
   region: 'Alberta',
-  url: 'https://ivoryandash.ca',
+  url: 'https://ivoryandashpainting.com',
 
   // Leave blank to hide. Add them when the phone line and mailbox exist.
   phone: '',

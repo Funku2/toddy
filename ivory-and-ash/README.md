@@ -31,7 +31,7 @@ The voice concierge and the forms only work once the site is deployed (see below
 1. Create a new Netlify site from this repository and set **Base directory** to `ivory-and-ash`. The build settings come from `netlify.toml`.
 2. Add an environment variable `XAI_API_KEY` with an xAI API key. The key stays on the server; visitors only ever receive a token that expires after two minutes.
 3. Turn on **Forms**. Two forms will appear after the first deploy: `consultation` (the written form) and `concierge-enquiry` (requests taken by the voice concierge, with a transcript). Add an email notification for each so new enquiries reach you.
-4. Point the domain at the site and update the address in `astro.config.mjs`, `src/site.config.ts` and `public/robots.txt` if it is not `ivoryandash.ca`.
+4. Point the domain `ivoryandashpainting.com` at the site. The address is already set in `astro.config.mjs`, `src/site.config.ts` and `public/robots.txt`.
 
 ## The voice concierge
 
@@ -47,7 +47,7 @@ The voice concierge and the forms only work once the site is deployed (see below
 - [ ] Replace the photographs with real Ivory & Ash projects as they are completed. The current images are AI-generated and illustrative; the footer says so. Remove that footer line once every photo is your own work.
 - [ ] Confirm every claim on the page is true for the business: liability insurance, WCB coverage, written warranty, fixed-price proposals, dedicated crews, colour consultations, limewash and sprayed cabinetry.
 - [ ] Add the phone number and email address in `src/site.config.ts`.
-- [ ] Register the domain and the business name (NUANS search for Alberta). Note that an unrelated "Ivory & Ash Hair Co." operates in Aldergrove, BC.
+- [ ] Register the business name (NUANS search for Alberta). The domain `ivoryandashpainting.com` is already registered. Note that an unrelated "Ivory & Ash Hair Co." operates in Aldergrove, BC.
 - [ ] Have the privacy page reviewed.
 - [ ] Test the concierge on the live site with a real xAI key, on a phone and a computer.
 - [ ] Adjust the investment ranges in the form to match your minimum project size.

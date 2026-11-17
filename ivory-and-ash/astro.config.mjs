@@ -5,7 +5,7 @@ import sitemap from '@astrojs/sitemap';
 const tsconfig = fileURLToPath(new URL('./tsconfig.json', import.meta.url));
 
 export default defineConfig({
-  site: 'https://ivoryandash.ca',
+  site: 'https://ivoryandashpainting.com',
   trailingSlash: 'always',
   integrations: [sitemap({ filter: (page) => !page.includes('/thanks/') })],
   // This site lives in a subfolder of another project. Without this, the bundler walks up
