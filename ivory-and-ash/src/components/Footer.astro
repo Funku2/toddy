@@ -22,7 +22,7 @@ const year = new Date().getFullYear();
         <h4>Enquiries</h4>
         <ul>
           <li><a href="/#consultation">Request a consultation</a></li>
-          {site.phone && <li><a href={`tel:${site.phone.replace(/[^+\d]/g, '')}`}>{site.phone}</a></li>}
+          {site.phone && <li><a href={`tel:${site.phoneLink}`}>{site.phone}</a></li>}
           {site.email && <li><a href={`mailto:${site.email}`}>{site.email}</a></li>}
           {site.instagram && <li><a href={site.instagram} rel="noopener">Instagram</a></li>}
           <li>{site.city}, {site.region}</li>

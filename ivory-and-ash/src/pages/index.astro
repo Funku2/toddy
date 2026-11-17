@@ -234,7 +234,7 @@ const faqs = [
         <ul class="aside-list">
           <li><span>Serving</span><span>{site.city} &amp; area</span></li>
           <li><span>Reply</span><span>Within {site.replyWindow}</span></li>
-          {site.phone && <li><span>Telephone</span><a href={`tel:${site.phone.replace(/[^+\d]/g, '')}`}>{site.phone}</a></li>}
+          {site.phone && <li><span>Telephone</span><a href={`tel:${site.phoneLink}`}>{site.phone}</a></li>}
           {site.email && <li><span>Email</span><a href={`mailto:${site.email}`}>{site.email}</a></li>}
         </ul>
       </div>

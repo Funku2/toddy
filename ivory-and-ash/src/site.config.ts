@@ -8,7 +8,8 @@ export const site = {
   url: 'https://ivoryandashpainting.com',
 
   // Leave blank to hide. Add them when the phone line and mailbox exist.
-  phone: '',
+  phone: '403.818.0044',
+  phoneLink: '+14038180044',
   email: 'hello@ivoryandashpainting.com',
   instagram: '',
 

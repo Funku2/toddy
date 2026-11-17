@@ -46,7 +46,6 @@ The voice concierge and the forms only work once the site is deployed (see below
 
 - [ ] Replace the photographs with real Ivory & Ash projects as they are completed. The current images are AI-generated and illustrative; the footer says so. Remove that footer line once every photo is your own work.
 - [ ] Confirm every claim on the page is true for the business: liability insurance, WCB coverage, written warranty, fixed-price proposals, dedicated crews, colour consultations, limewash and sprayed cabinetry.
-- [ ] Add the phone number in `src/site.config.ts` (the email address is set).
 - [ ] Register the business name (NUANS search for Alberta). The domain `ivoryandashpainting.com` is already registered. Note that an unrelated "Ivory & Ash Hair Co." operates in Aldergrove, BC.
 - [ ] Have the privacy page reviewed.
 - [ ] Test the concierge on the live site with a real xAI key, on a phone and a computer.
