@@ -12,3 +12,10 @@
     Permissions-Policy = "microphone=(self), camera=(), geolocation=()"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
+
+# Send anyone who lands on Netlify's own address to the real domain.
+[[redirects]]
+  from = "https://ivory-and-ash-painting.netlify.app/*"
+  to = "https://ivoryandashpainting.com/:splat"
+  status = 301
+  force = true
