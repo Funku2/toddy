@@ -1,0 +1,84 @@
+---
+import '@fontsource-variable/cormorant/wght.css';
+import '@fontsource-variable/cormorant/wght-italic.css';
+import '@fontsource-variable/jost';
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Concierge from '../components/Concierge.astro';
+import { site } from '../site.config';
+
+interface Props { title?: string; description?: string; plainHeader?: boolean; image?: string; noindex?: boolean }
+const {
+  title = `${site.fullName} | Fine Painting in ${site.city}`,
+  description = `${site.name} is a ${site.city} painting firm for discerning homeowners. Interiors, exteriors, cabinetry and boutique commercial spaces, finished to an exacting standard.`,
+  plainHeader = false,
+  image,
+  noindex = false,
+} = Astro.props;
+const canonical = new URL(Astro.url.pathname, site.url).href;
+const ogImage = image ? new URL(image, site.url).href : undefined;
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'HousePainter',
+  name: site.fullName,
+  url: site.url,
+  description,
+  areaServed: { '@type': 'City', name: `${site.city}, ${site.region}` },
+  address: { '@type': 'PostalAddress', addressLocality: site.city, addressRegion: 'AB', addressCountry: 'CA' },
+  ...(site.phone ? { telephone: site.phone } : {}),
+  ...(site.email ? { email: site.email } : {}),
+  ...(ogImage ? { image: ogImage } : {}),
+};
+---
+<!doctype html>
+<html lang="en-CA" class="no-js">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#1a1917" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.fullName} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <script is:inline>document.documentElement.classList.remove('no-js');</script>
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <Header plain={plainHeader} />
+    <main id="main"><slot /></main>
+    <Footer />
+    {site.concierge.enabled && <Concierge />}
+    <script>
+      const header = document.querySelector('.site-header');
+      const onScroll = () => header?.classList.toggle('solid', window.scrollY > 40);
+      onScroll();
+      window.addEventListener('scroll', onScroll, { passive: true });
+
+      const toggle = document.querySelector<HTMLButtonElement>('.menu-toggle');
+      const setMenu = (open: boolean) => {
+        document.body.classList.toggle('menu-open', open);
+        toggle?.setAttribute('aria-expanded', String(open));
+        if (toggle) toggle.textContent = open ? 'Close' : 'Menu';
+      };
+      toggle?.addEventListener('click', () => setMenu(!document.body.classList.contains('menu-open')));
+      document.querySelectorAll('.nav a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
+      window.addEventListener('keydown', (e) => e.key === 'Escape' && setMenu(false));
+
+      const io = new IntersectionObserver(
+        (entries) => entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }),
+        { rootMargin: '0px 0px -8% 0px', threshold: 0.08 },
+      );
+      document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+    </script>
+  </body>
+</html>

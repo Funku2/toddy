@@ -1,0 +1,57 @@
+---
+import { site } from '../site.config';
+const c = site.concierge;
+---
+<div
+  class="cg"
+  data-concierge
+  data-model={c.model}
+  data-voice={c.voice}
+  data-max-minutes={c.maxMinutes}
+  data-reply-window={site.replyWindow}
+  data-state="idle"
+>
+  <button class="cg-launch" type="button" data-cg-open aria-haspopup="dialog">
+    <span class="dot" aria-hidden="true"></span>
+    <span>Concierge<span class="long"> &middot; speak with us</span></span>
+  </button>
+
+  <div class="cg-panel" role="dialog" aria-modal="false" aria-labelledby="cg-title" hidden>
+    <div class="cg-head">
+      <div>
+        <div class="s">Ivory &amp; Ash</div>
+        <div class="t" id="cg-title">The Concierge</div>
+      </div>
+      <button class="cg-x" type="button" data-cg-close aria-label="Close the concierge">&times;</button>
+    </div>
+
+    <div class="cg-stage">
+      <div class="cg-orb" aria-hidden="true"><span class="ring two"></span><span class="ring"></span><span class="core"></span></div>
+      <div class="cg-status" data-cg-status role="status">Available now</div>
+    </div>
+
+    <div class="cg-intro" data-cg-intro>
+      <p>Tell our concierge about your home and what you have in mind. It will take the details and arrange your private consultation.</p>
+    </div>
+    <div class="cg-log" data-cg-log aria-live="polite" hidden></div>
+
+    <div class="cg-foot">
+      <div class="cg-actions">
+        <button class="btn light" type="button" data-cg-start>Begin conversation</button>
+        <button class="btn ghost-light" type="button" data-cg-mute hidden aria-pressed="false">Mute</button>
+        <button class="btn light" type="button" data-cg-end hidden>End</button>
+      </div>
+      <p class="cg-fine">The concierge is an AI assistant and uses your microphone. Audio is processed by xAI to hold the conversation, and a summary is shared with our team. <a href="/privacy/">Privacy</a></p>
+    </div>
+  </div>
+
+  <!-- Netlify detects this form at build time; the concierge posts enquiries to it. -->
+  <form name="concierge-enquiry" data-netlify="true" netlify-honeypot="company" hidden>
+    <input name="company" /><input name="name" /><input name="phone" /><input name="email" />
+    <input name="neighbourhood" /><input name="project" /><input name="timeline" />
+    <textarea name="notes"></textarea><textarea name="transcript"></textarea>
+  </form>
+</div>
+<script>
+  import '../scripts/concierge';
+</script>

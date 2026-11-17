@@ -1,0 +1,278 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import { photo } from '../photos';
+import { site } from '../site.config';
+
+const services = [
+  { img: 'foyer', alt: 'An entry foyer with panelled walls painted in soft ivory', title: 'Interiors', text: 'Walls, ceilings, trim and millwork finished with the patience they deserve. Surfaces are repaired, sanded and primed before any colour is opened.', tags: ['Whole-home repaints', 'Trim & doors', 'Limewash & specialty finishes'] },
+  { img: 'exterior', alt: 'An estate home with ivory siding and charcoal trim at golden hour', title: 'Exteriors', text: 'Stucco, siding, trim and front doors, prepared and coated to stand up to Calgary sun, hail and chinook swings. Scheduled for the right weather, not the first open day.', tags: ['Stucco & siding', 'Trim & fascia', 'Front doors'] },
+  { img: 'kitchen', alt: 'A kitchen with cabinetry painted in a smooth greige finish', title: 'Cabinetry & millwork', text: 'Kitchens, vanities and built-ins refinished to a smooth, furniture-grade surface. A new kitchen in feeling, without the renovation.', tags: ['Kitchen cabinetry', 'Built-ins', 'Sprayed finishes'] },
+  { img: 'commercial', alt: 'A boutique office reception with deep ash walls and ivory trim', title: 'Commercial & boutique spaces', text: 'Professional offices, studios, restaurants and retail that need to look immaculate. We work around your hours, so your clients only ever see the result.', tags: ['Offices & clinics', 'Retail & hospitality', 'After-hours scheduling'] },
+];
+
+const gallery = [
+  { cls: 'g-a', img: 'dining', alt: 'A dining room with deep ash walls above ivory wainscoting', kind: 'Dining room', cap: 'Deep ash above ivory wainscot' },
+  { cls: 'g-b', img: 'bedroom', alt: 'A bedroom with warm limewashed walls', kind: 'Primary bedroom', cap: 'Hand-brushed limewash in warm greige' },
+  { cls: 'g-c', img: 'kitchen', alt: 'A kitchen with painted greige cabinetry and brass hardware', kind: 'Kitchen', cap: 'Sprayed cabinetry, satin finish' },
+  { cls: 'g-d', img: 'library', alt: 'A library with built-in shelving painted in deep green-grey', kind: 'Library', cap: 'Built-ins in a deep ash green' },
+  { cls: 'g-e', img: 'door', alt: 'A front door painted in high-gloss black with brass hardware', kind: 'Entrance', cap: 'High-gloss black front door' },
+  { cls: 'g-f', img: 'foyer', alt: 'A staircase and foyer with ivory panelled walls', kind: 'Foyer', cap: 'Panelled walls in soft ivory' },
+  { cls: 'g-g', img: 'exterior', alt: 'A two-storey home with ivory siding and charcoal trim', kind: 'Exterior', cap: 'Ivory body, charcoal trim' },
+];
+
+const method = [
+  { t: 'Consultation', p: 'We visit your home, walk each room with you and listen. No pressure, and no guesswork over the phone.' },
+  { t: 'Specification', p: 'You receive a written, fixed-price proposal that names every surface, product and finish, with colour guidance if you would like it.' },
+  { t: 'Preparation', p: 'Furniture and floors are protected. Surfaces are filled, sanded, caulked and primed. This is where a lasting finish is made.' },
+  { t: 'Application', p: 'One dedicated crew, premium coatings and a tidy home at the end of every day, with a single point of contact throughout.' },
+  { t: 'The walkthrough', p: 'We review every room together in good light. The project is complete when you are delighted, not before.' },
+];
+
+const promises = [
+  { t: 'A fixed price, in writing', p: 'Your proposal lists exactly what is included. The price we agree is the price you pay, unless you choose to add to the scope.' },
+  { t: 'A start date we keep', p: 'We schedule your project and hold that date. You will always know who is arriving and when.' },
+  { t: 'One dedicated crew', p: 'The same skilled painters from the first day to the last. No rotating strangers in your home.' },
+  { t: 'Preparation before paint', p: 'Most of a fine finish happens before the first coat. We do not skip the steps you cannot see.' },
+  { t: 'A home left immaculate', p: 'Floors, furnishings and landscaping are protected, and the site is tidied at the end of each day.' },
+  { t: 'Insured, covered and warrantied', p: 'We carry liability insurance and WCB coverage, and every project is backed by a written warranty.' },
+];
+
+const faqs = [
+  { q: 'What kind of projects do you take on?', a: 'Most of our work is whole-home interiors, exteriors, cabinetry and considered commercial spaces. If your project is smaller, tell us about it. We will let you know honestly whether we are the right fit.' },
+  { q: 'How is a project priced?', a: 'After an on-site consultation, you receive a written, fixed-price proposal that sets out every surface, product and finish. We do not estimate from photographs or by the square foot, because the preparation a home needs can only be judged in person.' },
+  { q: 'Which paints do you use?', a: 'Premium lines from the leading manufacturers, selected for each surface: a different product for a ceiling, a stair rail, a kitchen cabinet and a south-facing wall. The products are named in your proposal.' },
+  { q: 'Do I need to move out or move furniture?', a: 'No. We move and protect furniture, cover floors and work room by room so your household can carry on. For cabinetry, doors and drawers are finished off-site or in a contained area.' },
+  { q: 'When should I book an exterior?', a: 'Calgary has a short exterior season, usually May to September. The best dates are reserved early, so we suggest arranging your consultation in late winter or spring.' },
+  { q: 'Can you help me choose colours?', a: 'Yes. We offer colour guidance as part of the process, including large painted samples viewed in your own light, so you decide with confidence.' },
+];
+---
+<Base image="/og.jpg">
+  <section class="hero">
+    <div class="hero-media">
+      <Image src={photo('hero')} alt="A serene living room with flawless ivory walls and an ash-grey fireplace" widths={[768, 1280, 1920, 2688]} sizes="100vw" loading="eager" fetchpriority="high" quality={78} />
+    </div>
+    <div class="wrap hero-inner">
+      <p class="eyebrow rise" style="--d:0">{site.tagline} &middot; {site.city}</p>
+      <h1 class="rise" style="--d:1">The art of a <em>flawless</em> finish.</h1>
+      <div class="hero-foot">
+        <p class="rise" style="--d:2">Ivory &amp; Ash is a Calgary painting firm for homeowners who notice the details. Meticulous preparation, exceptional coatings and a quiet, respectful presence in your home.</p>
+        <div class="hero-actions rise" style="--d:3">
+          <a class="btn light" href="#consultation">Request a consultation</a>
+          {site.concierge.enabled && <button class="btn ghost-light" type="button" data-cg-open>Speak with our concierge</button>}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="creds" aria-label="What to expect">
+    <div class="wrap">
+      <ul>
+        <li>Written fixed-price proposals</li>
+        <li>Dedicated crews</li>
+        <li>Fully insured &amp; WCB covered</li>
+        <li>Written warranty</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap philosophy">
+      <div class="reveal">
+        <p class="eyebrow">Our philosophy</p>
+        <h2>Paint is the last thing applied to a home, and the first thing <em>everyone</em> sees.</h2>
+        <p class="lede">A beautiful finish is not an accident. It comes from preparation most people never notice, a steady hand at every edge, and a crew that treats your home with the care you do.</p>
+        <p class="muted">We built Ivory &amp; Ash for clients who would rather have it done once, and done properly. We take on a limited number of projects at a time so that each receives our full attention, from the first conversation to the final walkthrough.</p>
+        <p class="signature">Quietly exceptional work.</p>
+      </div>
+      <div class="figure reveal" style="--d:2">
+        <Image src={photo('craft')} alt="A painter cutting a precise line of charcoal paint beneath white crown moulding" widths={[480, 800, 1200]} sizes="(max-width: 56rem) 100vw, 45vw" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="services" style="padding-top:0">
+    <div class="wrap">
+      <div class="head reveal">
+        <div>
+          <p class="eyebrow">Services</p>
+          <h2>Every surface, <em>considered.</em></h2>
+        </div>
+        <p class="lede">Residential and commercial, inside and out. One standard of finish across all of it.</p>
+      </div>
+      <div class="services">
+        {services.map((s, i) => (
+          <article class="service reveal" style={`--d:${i % 2}`}>
+            <div class="frame"><Image src={photo(s.img)} alt={s.alt} widths={[480, 800, 1200]} sizes="(max-width: 48rem) 100vw, 46vw" /></div>
+            <div>
+              <span class="num">0{i + 1}</span>
+              <h3>{s.title}</h3>
+              <p>{s.text}</p>
+              <ul>{s.tags.map((t) => <li>{t}</li>)}</ul>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section dark" id="portfolio">
+    <div class="wrap">
+      <div class="head reveal">
+        <div>
+          <p class="eyebrow">Portfolio</p>
+          <h2>A study in <em>finish.</em></h2>
+        </div>
+        <p class="lede">The rooms and exteriors we love to paint: deep, velvety walls, crisp millwork and colour chosen to suit the light.</p>
+      </div>
+      <div class="gallery">
+        {gallery.map((g, i) => (
+          <figure class:list={[g.cls, 'reveal']} style={`--d:${i % 3}`} tabindex="0">
+            <Image src={photo(g.img)} alt={g.alt} widths={[480, 800, 1200, 1600]} sizes="(max-width: 48rem) 100vw, 55vw" />
+            <figcaption><span>{g.kind}</span>{g.cap}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="method">
+    <div class="wrap">
+      <div class="head reveal">
+        <div>
+          <p class="eyebrow">The method</p>
+          <h2>Calm, clear and <em>unhurried.</em></h2>
+        </div>
+        <p class="lede">Five steps, the same on every project, so you always know what happens next.</p>
+      </div>
+      <ol class="method reveal">
+        {method.map((m) => (<li><h3>{m.t}</h3><p>{m.p}</p></li>))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="split">
+    <div class="media reveal">
+      <Image src={photo('colour')} alt="Hand-painted sample boards in ivory, greige and ash tones beside linen, marble and brass" widths={[600, 1000, 1600]} sizes="(max-width: 56rem) 100vw, 50vw" />
+    </div>
+    <div class="copy reveal" style="--d:1">
+      <p class="eyebrow">Colour</p>
+      <h2>Chosen in <em>your</em> light.</h2>
+      <p class="lede">The same white reads warm in a south-facing sitting room and cold in a north-facing hall. Calgary's bright, high-altitude light changes everything.</p>
+      <p class="muted">We bring large painted samples to your home and view them beside your floors, stone and fabrics, morning and evening, before a single wall is painted.</p>
+      <a class="btn ghost" href="#consultation">Arrange a colour consultation</a>
+    </div>
+  </section>
+
+  <section class="section dark" id="standard">
+    <div class="wrap standard">
+      <div class="sticky reveal">
+        <p class="eyebrow">The Ivory &amp; Ash standard</p>
+        <h2>Six promises, <em>kept.</em></h2>
+        <p class="lede">Fine painting is as much about how the work is carried out as how it looks when we leave.</p>
+      </div>
+      <ul class="promises">
+        {promises.map((p, i) => (
+          <li class="reveal">
+            <span class="n">0{i + 1}</span>
+            <div><h3>{p.t}</h3><p>{p.p}</p></div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap areas">
+      <div class="reveal">
+        <p class="eyebrow">Where we work</p>
+        <h2>Calgary's finest <em>addresses.</em></h2>
+        <p class="lede">We paint throughout Calgary and the surrounding communities, with much of our work in the city's established and estate neighbourhoods.</p>
+        <p class="muted">Not on the list? We would still be glad to hear from you.</p>
+      </div>
+      <ul class="reveal" style="--d:1">
+        {site.neighbourhoods.map((n) => <li>{n}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  {site.concierge.enabled && (
+    <section class="section dark concierge-band">
+      <div class="wrap reveal">
+        <div class="orb-static" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><path d="M12 3v18M7.5 7.5v9M16.5 7.5v9M3 10.5v3M21 10.5v3" /></svg>
+        </div>
+        <p class="eyebrow centered">The concierge</p>
+        <h2>Prefer to simply <em>talk it through?</em></h2>
+        <p class="lede">Our concierge is available at any hour. Describe your home and what you have in mind, and it will take the details and arrange your private consultation.</p>
+        <div class="actions">
+          <button class="btn light" type="button" data-cg-open>Speak with our concierge</button>
+          <a class="btn ghost-light" href="#consultation">Write to us instead</a>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="section" id="questions">
+    <div class="wrap">
+      <div class="head center reveal">
+        <p class="eyebrow centered">Questions</p>
+        <h2>Before we <em>meet.</em></h2>
+      </div>
+      <div class="faq reveal">
+        {faqs.map((f) => (<details><summary>{f.q}</summary><p>{f.a}</p></details>))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="consultation" style="background:var(--paper); border-top:1px solid var(--line)">
+    <div class="wrap consult">
+      <div class="reveal">
+        <p class="eyebrow">Consultation</p>
+        <h2>Begin with a <em>conversation.</em></h2>
+        <p class="lede">Tell us a little about your home. We will reply within {site.replyWindow} to arrange a private, on-site consultation.</p>
+        <ul class="aside-list">
+          <li><span>Serving</span><span>{site.city} &amp; area</span></li>
+          <li><span>Reply</span><span>Within {site.replyWindow}</span></li>
+          {site.phone && <li><span>Telephone</span><a href={`tel:${site.phone.replace(/[^+\d]/g, '')}`}>{site.phone}</a></li>}
+          {site.email && <li><span>Email</span><a href={`mailto:${site.email}`}>{site.email}</a></li>}
+        </ul>
+      </div>
+      <form class="form reveal" style="--d:1" name="consultation" method="POST" action="/thanks/" data-netlify="true" netlify-honeypot="company">
+        <input type="hidden" name="form-name" value="consultation" />
+        <label class="hp" aria-hidden="true">Leave this empty <input type="text" name="company" tabindex="-1" autocomplete="off" /></label>
+        <div class="field"><label for="f-name">Name</label><input id="f-name" name="name" type="text" autocomplete="name" required /></div>
+        <div class="field"><label for="f-phone">Telephone</label><input id="f-phone" name="phone" type="tel" autocomplete="tel" required /></div>
+        <div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" required /></div>
+        <div class="field"><label for="f-area">Neighbourhood</label><input id="f-area" name="neighbourhood" type="text" autocomplete="address-level3" /></div>
+        <div class="field">
+          <label for="f-project">Project</label>
+          <select id="f-project" name="project" required>
+            <option value="" selected disabled>Please select</option>
+            <option>Interior</option><option>Exterior</option><option>Interior &amp; exterior</option>
+            <option>Cabinetry &amp; millwork</option><option>Commercial space</option><option>Something else</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="f-time">Ideal timing</label>
+          <select id="f-time" name="timeline">
+            <option value="" selected disabled>Please select</option>
+            <option>As soon as possible</option><option>Within three months</option><option>Three to six months</option><option>Planning ahead</option>
+          </select>
+        </div>
+        <div class="field full">
+          <label for="f-budget">Anticipated investment</label>
+          <select id="f-budget" name="investment">
+            <option value="" selected disabled>Please select</option>
+            <option>Under $5,000</option><option>$5,000 to $10,000</option><option>$10,000 to $25,000</option><option>$25,000 to $50,000</option><option>Over $50,000</option><option>Not sure yet</option>
+          </select>
+        </div>
+        <div class="field full"><label for="f-msg">About your home and project</label><textarea id="f-msg" name="message" placeholder="Rooms or areas, finishes you love, anything we should know."></textarea></div>
+        <div class="submit">
+          <button class="btn" type="submit">Request a consultation</button>
+          <p class="note">Your details are used only to respond to your enquiry.</p>
+        </div>
+      </form>
+    </div>
+  </section>
+</Base>

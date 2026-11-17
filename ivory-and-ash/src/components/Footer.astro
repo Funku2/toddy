@@ -1,0 +1,37 @@
+---
+import { site } from '../site.config';
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="top">
+      <div>
+        <a class="wordmark" href="/" aria-label="Ivory and Ash, home">Ivory<i>&amp;</i>Ash</a>
+        <p>{site.tagline} in {site.city}, {site.region}. Interiors, exteriors, cabinetry and boutique commercial spaces.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="/#services">Services</a></li>
+          <li><a href="/#portfolio">Portfolio</a></li>
+          <li><a href="/#method">Method</a></li>
+          <li><a href="/#questions">Questions</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Enquiries</h4>
+        <ul>
+          <li><a href="/#consultation">Request a consultation</a></li>
+          {site.phone && <li><a href={`tel:${site.phone.replace(/[^+\d]/g, '')}`}>{site.phone}</a></li>}
+          {site.email && <li><a href={`mailto:${site.email}`}>{site.email}</a></li>}
+          {site.instagram && <li><a href={site.instagram} rel="noopener">Instagram</a></li>}
+          <li>{site.city}, {site.region}</li>
+        </ul>
+      </div>
+    </div>
+    <div class="legal">
+      <span>&copy; {year} {site.fullName}. All rights reserved.</span>
+      <span>Imagery is illustrative of our finishes. <a href="/privacy/">Privacy</a></span>
+    </div>
+  </div>
+</footer>

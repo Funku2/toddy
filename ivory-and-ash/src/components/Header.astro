@@ -1,0 +1,17 @@
+---
+interface Props { plain?: boolean }
+const { plain = false } = Astro.props;
+---
+<header class:list={['site-header', { plain }]}>
+  <div class="wrap bar">
+    <a class="wordmark" href="/" aria-label="Ivory and Ash, home">Ivory<i>&amp;</i>Ash</a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav class="nav" id="site-nav" aria-label="Main">
+      <a href="/#services">Services</a>
+      <a href="/#portfolio">Portfolio</a>
+      <a href="/#method">Method</a>
+      <a href="/#standard">Our standard</a>
+      <a class="btn" href="/#consultation">Request a consultation</a>
+    </nav>
+  </div>
+</header>

@@ -1,0 +1,21 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../site.config';
+---
+<Base title={`Privacy | ${site.fullName}`} description={`How ${site.fullName} handles the information you share with us.`} plainHeader>
+  <div class="wrap doc">
+    <p class="eyebrow">Privacy</p>
+    <h1>Your <em>privacy.</em></h1>
+    <p>{site.fullName} collects only the information needed to respond to your enquiry and carry out your project.</p>
+    <h2>What we collect</h2>
+    <p>When you send the consultation form, we receive the details you enter: your name, telephone number, email address, neighbourhood and a description of your project.</p>
+    <h2>The voice concierge</h2>
+    <p>The concierge is an AI assistant. If you choose to use it, your browser asks for access to your microphone, and the audio of the conversation is sent to xAI, the provider of the voice technology, so that it can respond. The details you give and a written transcript of the conversation are sent to our team so that we can follow up. You can end the conversation at any time, and you are welcome to use the written form instead.</p>
+    <h2>How we use it</h2>
+    <p>We use your information to reply to you, prepare your proposal and deliver your project. We do not sell your information or share it for marketing.</p>
+    <h2>Service providers</h2>
+    <p>Our website is hosted by Netlify, which stores form submissions on our behalf, and voice conversations are processed by xAI. These providers may store information outside Canada.</p>
+    <h2>Your choices</h2>
+    <p>You may ask to see, correct or delete the information we hold about you at any time{site.email ? <> by writing to <a href={`mailto:${site.email}`}>{site.email}</a></> : ' by contacting us through the consultation form'}.</p>
+  </div>
+</Base>

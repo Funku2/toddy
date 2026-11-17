@@ -1,0 +1,12 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../site.config';
+---
+<Base title={`Page not found | ${site.fullName}`} plainHeader noindex>
+  <div class="wrap doc center">
+    <p class="eyebrow centered">404</p>
+    <h1>This page has been <em>painted over.</em></h1>
+    <p class="lede">The page you are looking for is not here.</p>
+    <p style="margin-top:2rem"><a class="btn ghost" href="/">Return home</a></p>
+  </div>
+</Base>
